@@ -4,11 +4,12 @@ mod solution;
 
 use clap::{Parser, ValueEnum};
 use solution::Solution;
-use std::fs;
+use std::{fs, process::exit};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
 pub enum Day {
     Day1,
+    Day2,
 }
 
 #[derive(Debug, Parser)]
@@ -28,22 +29,13 @@ fn main() {
     let day_num = args.day as u8 + 1;
     let solution: Box<dyn Solution> = match args.day {
         Day::Day1 => Box::new(day1::Day1),
+        Day::Day2 => Box::new(day2::Day2),
     };
-    fs::read_to_string(format!("{}/day{}-p1.txt", args.input, day_num))
-        .and_then(|input| {
-            println!("Day {day_num} Part 1: {}", solution.part1(&input));
-            Ok(())
-        })
-        .unwrap_or_else(|_| {
-            println!("Day {day_num} Part 1: No input file found");
+    let input =
+        fs::read_to_string(format!("{}/day{}.txt", args.input, day_num)).unwrap_or_else(|_| {
+            println!("Day {day_num}: No input file found");
+            exit(0);
         });
-
-    fs::read_to_string(format!("{}/day{}-p2.txt", args.input, day_num))
-        .and_then(|input| {
-            println!("Day {day_num} Part 2: {}", solution.part2(&input));
-            Ok(())
-        })
-        .unwrap_or_else(|_| {
-            println!("Day {day_num} Part 2: No input file found");
-        });
+    println!("Day {day_num} Part 1: {}", solution.part1(&input));
+    println!("Day {day_num} Part 2: {}", solution.part2(&input));
 }
