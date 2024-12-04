@@ -21,7 +21,7 @@ impl Day1 {
 
 impl Solution for Day1 {
     fn part1(&self, input: &str) -> String {
-        let (mut left, mut right) = Day1::parse_input(input);
+        let (mut left, mut right) = Self::parse_input(input);
         let mut sum = 0;
         while let (Some((lk, lv)), Some((rk, rv))) = (left.pop_first(), right.pop_first()) {
             // Add the minimum of the two counts to the sum
@@ -41,7 +41,7 @@ impl Solution for Day1 {
     }
 
     fn part2(&self, input: &str) -> String {
-        let (left, right) = Day1::parse_input(input);
+        let (left, right) = Self::parse_input(input);
         left.into_iter()
             .map(|(k, v)| k * v * right.get(&k).unwrap_or(&0))
             .sum::<i32>()
