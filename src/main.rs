@@ -1,4 +1,5 @@
 mod day1;
+mod day2;
 mod solution;
 
 use clap::{Parser, ValueEnum};
@@ -23,25 +24,26 @@ struct Args {
 }
 
 fn main() {
-    let args = Args::parse();
+    let args: Args = Args::parse();
+    let day_num = args.day as u8 + 1;
     let solution: Box<dyn Solution> = match args.day {
         Day::Day1 => Box::new(day1::Day1),
     };
-    fs::read_to_string(format!("{}/day{}-p1.txt", args.input, args.day as u8 + 1))
+    fs::read_to_string(format!("{}/day{}-p1.txt", args.input, day_num))
         .and_then(|input| {
-            println!("Part 1: {}", solution.part1(&input));
+            println!("Day {day_num} Part 1: {}", solution.part1(&input));
             Ok(())
         })
         .unwrap_or_else(|_| {
-            println!("Part 1: No input file found");
+            println!("Day {day_num} Part 1: No input file found");
         });
 
-    fs::read_to_string(format!("{}/day{}-p2.txt", args.input, args.day as u8 + 1))
+    fs::read_to_string(format!("{}/day{}-p2.txt", args.input, day_num))
         .and_then(|input| {
-            println!("Part 2: {}", solution.part2(&input));
+            println!("Day {day_num} Part 2: {}", solution.part2(&input));
             Ok(())
         })
         .unwrap_or_else(|_| {
-            println!("Part 2: No input file found");
+            println!("Day {day_num} Part 2: No input file found");
         });
 }
