@@ -10,9 +10,9 @@ use solution::Solution;
 use std::{fs, process::exit};
 
 /// Example input file root path
-pub const RIN: &str = "example/inputs";
+pub const RIN: &str = "examples/inputs";
 /// Example output file root path
-pub const ROUT: &str = "example/outputs";
+pub const ROUT: &str = "examples/outputs";
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
 pub enum Day {
