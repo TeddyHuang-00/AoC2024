@@ -6,4 +6,9 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.5.22", features = ["derive"] }
 ndarray = "0.16.1"
+quote = "1.0.37"
 regex = "1.11.1"
+
+[lib]
+name = "util"
+proc-macro = true
