@@ -1,7 +1,7 @@
 use crate::solution::Solution;
 use ndarray::{prelude::*, stack};
 
-pub struct Day4;
+pub struct Puzzle;
 
 enum Character {
     X,
@@ -10,7 +10,7 @@ enum Character {
     S,
 }
 
-impl Day4 {
+impl Puzzle {
     fn parse_input(input: &str) -> Array<isize, Ix2> {
         // Create a 2D array from the input
         let height = input.lines().count();
@@ -32,7 +32,7 @@ impl Day4 {
     }
 }
 
-impl Solution for Day4 {
+impl Solution for Puzzle {
     fn part1(&self, input: &str) -> String {
         let input = Self::parse_input(input);
         let pattern = Array::from_iter(
@@ -127,5 +127,32 @@ impl Solution for Day4 {
             })
             .sum::<usize>()
             .to_string()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs;
+    use util::*;
+
+    fn read(file_path: String) -> String {
+        fs::read_to_string(file_path).unwrap()
+    }
+
+    #[test]
+    fn test_part1() {
+        assert_eq!(
+            Puzzle.part1(&read(format!("{}/{}.txt", crate::RIN, stem!()))),
+            read(format!("{}/{}-p1.txt", crate::ROUT, stem!()))
+        );
+    }
+
+    #[test]
+    fn test_part2() {
+        assert_eq!(
+            Puzzle.part2(&read(format!("{}/{}.txt", crate::RIN, stem!()))),
+            read(format!("{}/{}-p2.txt", crate::ROUT, stem!()))
+        );
     }
 }
