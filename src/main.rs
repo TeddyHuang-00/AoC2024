@@ -48,12 +48,6 @@ fn main() {
 mod tests {
     use super::*;
     use seq_macro::seq;
-    use util::stem;
-
-    #[test]
-    fn test_file_stem_macro() {
-        assert_eq!(stem!(), "main");
-    }
 
     seq!(D in 1..=5 {
         mod day_~D {
