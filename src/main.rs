@@ -1,6 +1,7 @@
 mod day1;
 mod day2;
 mod day3;
+mod day4;
 mod solution;
 
 use clap::{Parser, ValueEnum};
@@ -12,6 +13,7 @@ pub enum Day {
     Day1,
     Day2,
     Day3,
+    Day4,
 }
 
 #[derive(Debug, Parser)]
@@ -33,6 +35,7 @@ fn main() {
         Day::Day1 => Box::new(day1::Day1),
         Day::Day2 => Box::new(day2::Day2),
         Day::Day3 => Box::new(day3::Day3),
+        Day::Day4 => Box::new(day4::Day4),
     };
     let input =
         fs::read_to_string(format!("{}/day{}.txt", args.input, day_num)).unwrap_or_else(|_| {
