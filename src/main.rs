@@ -1,9 +1,11 @@
 mod solution;
+mod util;
 
 use clap::{Parser, ValueEnum};
 use seq_macro::seq;
 use solution::Solution;
-use std::{fs, process::exit};
+use std::{fs, process::exit, time::Instant};
+use util::*;
 
 seq!(D in 1..=5 {
     #(mod day~D;)*
@@ -24,6 +26,10 @@ struct Args {
     /// Input file root path
     #[arg(short, long, default_value = "inputs")]
     input: String,
+
+    /// Enable benchmarking
+    #[arg(short, long)]
+    benchmark: bool,
 }
 
 fn main() {
@@ -35,13 +41,39 @@ fn main() {
             #(Day::Day~D => Box::new(day~D::Puzzle),)*
         };
     });
-    let input =
-        fs::read_to_string(format!("{}/day{}.txt", args.input, day_num)).unwrap_or_else(|_| {
-            println!("Day {day_num}: No input file found");
-            exit(0);
-        });
-    println!("Day {day_num} Part 1: {}", solution.part1(&input));
-    println!("Day {day_num} Part 2: {}", solution.part2(&input));
+    let file_path = format!("{}/day{}.txt", args.input, day_num);
+    let input = fs::read_to_string(&file_path).unwrap_or_else(|_| {
+        println!("Day {day_num}: No input file found at {file_path}");
+        exit(0);
+    });
+    seq!(N in 1..=2 {
+        if args.benchmark {
+            #(
+                let mut part_time_~N = Vec::new();
+                part_time_~N.reserve(1000);
+            )*
+            for _ in 0..1000 {
+                #(
+                    let start = Instant::now();
+                    let _ = solution.part~N(&input);
+                    part_time_~N.push(start.elapsed().as_micros() as f64);
+                )*
+            }
+            #(
+                println!(
+                    "Day {day_num} Part {} ({:.2} ± {:.2} us): {}",
+                    N,
+                    mean(&part_time_~N),
+                    std_dev(&part_time_~N),
+                    solution.part~N(&input)
+                );
+            )*
+        } else {
+            #(
+                println!("Day {day_num} Part {}: {}", N, solution.part~N(&input));
+            )*
+        }
+    });
 }
 
 #[cfg(test)]
