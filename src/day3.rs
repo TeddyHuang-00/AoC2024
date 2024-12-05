@@ -1,6 +1,5 @@
 use crate::solution::Solution;
 use regex::Regex;
-use std::collections::BTreeSet;
 
 pub struct Day3;
 
