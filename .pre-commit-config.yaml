@@ -17,6 +17,6 @@ repos:
       - id: cargo-test
         name: cargo-test
         description: Check if all tests pass
-        entry: cargo test
+        entry: cargo test --tests
         language: system
         pass_filenames: false
