@@ -20,6 +20,7 @@ pub enum Day {
     Day2,
     Day3,
     Day4,
+    Day5,
 }
 
 #[derive(Debug, Parser)]
@@ -42,6 +43,7 @@ fn main() {
         Day::Day2 => Box::new(day2::Puzzle),
         Day::Day3 => Box::new(day3::Puzzle),
         Day::Day4 => Box::new(day4::Puzzle),
+        Day::Day5 => Box::new(day5::Puzzle),
     };
     let input =
         fs::read_to_string(format!("{}/day{}.txt", args.input, day_num)).unwrap_or_else(|_| {
