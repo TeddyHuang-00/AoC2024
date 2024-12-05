@@ -46,12 +46,12 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use seq_macro::seq;
 
     seq!(D in 1..=5 {
         mod day_~D {
-            use super::*;
+            use crate::day~D;
+            use crate::solution::Solution;
             use seq_macro::seq;
 
             seq!(N in 1..=2 {
