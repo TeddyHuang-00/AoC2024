@@ -1,5 +1,6 @@
-use crate::solution::Solution;
 use ndarray::{prelude::*, stack};
+
+use crate::solution::Solution;
 
 pub struct Puzzle;
 

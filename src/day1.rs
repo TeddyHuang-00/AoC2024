@@ -1,5 +1,6 @@
-use crate::solution::Solution;
 use std::collections::BTreeMap;
+
+use crate::solution::Solution;
 
 pub struct Puzzle;
 

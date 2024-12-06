@@ -1,5 +1,6 @@
-use crate::solution::Solution;
 use regex::Regex;
+
+use crate::solution::Solution;
 
 pub struct Puzzle;
 
