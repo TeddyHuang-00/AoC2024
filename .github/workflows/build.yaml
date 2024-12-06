@@ -1,0 +1,24 @@
+name: Test Build Binaries
+
+on:
+  push:
+    branches:
+      - "renovate/**"
+    paths-ignore:
+      - ".github/**"
+    tags-ignore:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  test-build:
+    name: test build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Run Cargo
+        run: cargo build --release
