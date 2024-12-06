@@ -1,13 +1,14 @@
 mod solution;
 mod util;
 
+use std::{fs, process::exit, time::Instant};
+
 use clap::{Parser, ValueEnum};
 use seq_macro::seq;
 use solution::Solution;
-use std::{fs, process::exit, time::Instant};
 use util::*;
 
-seq!(D in 1..=5 {
+seq!(D in 1..=6 {
     #(mod day~D;)*
 
     #[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
@@ -40,7 +41,7 @@ struct Args {
 fn main() {
     let args: Args = Args::parse();
 
-    seq!(D in 1..=5 {
+    seq!(D in 1..=6 {
         let solvers: Vec<(usize, Box<dyn Solution>)> = match args.day {
             Day::All => vec![
                 #((D, Box::new(day~D::Puzzle)),)*
@@ -89,7 +90,7 @@ fn main() {
 mod tests {
     use seq_macro::seq;
 
-    seq!(D in 1..=5 {
+    seq!(D in 1..=6 {
         mod day_~D {
             use crate::day~D;
             use crate::solution::Solution;
