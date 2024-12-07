@@ -1,2 +1,3 @@
 [alias]
 new-day = "r -r --bin new-day"
+solve = "r -r --bin aoc-2024 --"
