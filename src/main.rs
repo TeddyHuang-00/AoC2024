@@ -61,12 +61,18 @@ fn main() {
                     let mut part_time_~N = Vec::new();
                     part_time_~N.reserve(1000);
                 )*
-                for _ in 0..1000 {
+                let total_time = Instant::now();
+                for num_eval in 1..=1000 {
                     #(
                         let start = Instant::now();
                         let _ = solver.part~N(&input);
                         part_time_~N.push(start.elapsed().as_micros() as f64);
                     )*
+                    if num_eval >= 100 && total_time.elapsed().as_secs_f64() > 30.0 {
+                        // Early exit if the benchmark is taking too long
+                        // and we have enough data points
+                        break;
+                    }
                 }
                 #(
                     println!(
