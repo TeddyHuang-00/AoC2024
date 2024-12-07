@@ -40,9 +40,7 @@ impl Solution for Puzzle {
             vec![Character::X, Character::M, Character::A, Character::S]
                 .into_iter()
                 .map(|x| x as isize),
-        )
-        .insert_axis(Axis(0))
-        .insert_axis(Axis(0));
+        );
         let (r, c) = (input.nrows(), input.ncols());
         let diff = vec![
             (-1, -1),
@@ -75,9 +73,8 @@ impl Solution for Puzzle {
                     input.slice(s![dx[2]..r - dx[1], dy[2]..c - dy[1]]),
                     input.slice(s![dx[3]..r - dx[0], dy[3]..c - dy[0]]),
                 ];
-                let diff = stacked - pattern.clone();
-                let diff = diff.mapv(|x| x.abs()).sum_axis(Axis(2));
-                diff.iter().filter(|&&x| x == 0).count()
+                let stacked = stacked.map_axis(Axis(2), |x| x.abs_diff_eq(&pattern, 0));
+                stacked.iter().filter(|&&x| x).count()
             })
             .sum::<usize>()
             .to_string()
@@ -95,9 +92,7 @@ impl Solution for Puzzle {
             ]
             .into_iter()
             .map(|x| x as isize),
-        )
-        .insert_axis(Axis(0))
-        .insert_axis(Axis(0));
+        );
         let (r, c) = (input.nrows(), input.ncols());
         let diff = vec![(-1, 0), (0, -1), (0, 1), (1, 0)];
         diff.into_iter()
@@ -122,9 +117,8 @@ impl Solution for Puzzle {
                     input.slice(s![dx[3]..r - dx[1], dy[3]..c - dy[1]]),
                     input.slice(s![dx[4]..r - dx[0], dy[4]..c - dy[0]]),
                 ];
-                let diff = stacked - pattern.clone();
-                let diff = diff.mapv(|x| x.abs()).sum_axis(Axis(2));
-                diff.iter().filter(|&&x| x == 0).count()
+                let stacked = stacked.map_axis(Axis(2), |x| x.abs_diff_eq(&pattern, 0));
+                stacked.iter().filter(|&&x| x).count()
             })
             .sum::<usize>()
             .to_string()
