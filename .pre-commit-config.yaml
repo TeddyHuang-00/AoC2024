@@ -12,7 +12,7 @@ repos:
         name: cargo-fmt
         description: Check if all files follow the rustfmt style
         files: \.rs$
-        entry: cargo +nightly fmt -- --color always
+        entry: cargo +nightly fmt
         language: system
       - id: cargo-test
         name: cargo-test
