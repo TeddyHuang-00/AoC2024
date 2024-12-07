@@ -1,3 +1,6 @@
+color = "Always"
+edition = "2021"
 group_imports = "StdExternalCrate"
 imports_granularity = "Crate"
-color = "Always"
+reorder_impl_items = true
+style_edition = "2021"
