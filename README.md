@@ -15,3 +15,57 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |   5 | 931.95 ± 65.25         | 2460.15 ± 69.06        | Topological sort                     |
 |   6 | 377.85 ± 26.83         | 81214.27 ± 761.50      | Brute force with parallel            |
 |   7 | 1204.90 ± 166.41       | 44482.84 ± 2602.91     | Hash set + enumeration with parallel |
+
+## Running the code
+
+### Getting usage information
+
+Make sure you have Rust installed. Use the following command to get the help message:
+
+```sh
+cargo solve -h
+```
+
+### Testing the code
+
+To run the tests, use the following command:
+
+```sh
+cargo test
+```
+
+### Solving the puzzles
+
+To run the code for a specific day, inputs are to be put in the `inputs` directory with the name `dayXX.txt`, where `XX` is the day number. The following command runs the code for day 1:
+
+```sh
+cargo solve day1
+```
+
+Should you want to put the input in a different directory, you can use the `-i` flag to specify the input file directory:
+
+```sh
+cargo solve -i /path/to/input/dir/ day1
+```
+
+To run the code for all days, use the following command:
+
+```sh
+cargo solve all
+```
+
+### Benchmarking the code
+
+For benchmarking, add the `-b` flag:
+
+```sh
+cargo solve -b day1
+```
+
+### Creating a new day
+
+To create a new day, use the following command:
+
+```sh
+cargo new-day
+```
