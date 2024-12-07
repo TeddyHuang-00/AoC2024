@@ -1,0 +1,2 @@
+[alias]
+new-day = "r -r --bin new-day"
