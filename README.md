@@ -11,7 +11,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |   1 | 130.84 ± 19.30         | 105.85 ± 18.96         | B Tree + counting                    |
 |   2 | 95.70 ± 2.82           | 145.03 ± 3.32          | Brute force                          |
 |   3 | 151.32 ± 7.61          | 215.90 ± 4.96          | Regular expression                   |
-|   4 | 1112.39 ± 73.97        | 1929.11 ± 17.13        | Matrix stacking & matching           |
+|   4 | 663.44 ± 22.55         | 507.05 ± 12.22         | Matrix stacking & matching           |
 |   5 | 931.95 ± 65.25         | 2460.15 ± 69.06        | Topological sort                     |
 |   6 | 377.85 ± 26.83         | 81214.27 ± 761.50      | Brute force with parallel            |
 |   7 | 1204.90 ± 166.41       | 44482.84 ± 2602.91     | Hash set + enumeration with parallel |
