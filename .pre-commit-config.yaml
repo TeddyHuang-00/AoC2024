@@ -11,9 +11,9 @@ repos:
       - id: cargo-fmt
         name: cargo-fmt
         description: Check if all files follow the rustfmt style
-        entry: cargo fmt -- --color always
+        files: \.rs$
+        entry: cargo +nightly fmt -- --color always
         language: system
-        pass_filenames: false
       - id: cargo-test
         name: cargo-test
         description: Check if all tests pass
