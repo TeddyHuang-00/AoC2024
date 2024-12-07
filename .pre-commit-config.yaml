@@ -17,6 +17,7 @@ repos:
       - id: cargo-test
         name: cargo-test
         description: Check if all tests pass
+        files: (^Cargo.(toml|lock)|\.rs)$
         entry: cargo test --tests
         language: system
         pass_filenames: false
