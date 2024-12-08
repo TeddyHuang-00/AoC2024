@@ -15,6 +15,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |   5 | 931.95 ± 65.25         | 2460.15 ± 69.06        | Topological sort                     |
 |   6 | 521.66 ± 42.10         | 76062.14 ± 1238.70     | Brute force with parallel            |
 |   7 | 1204.90 ± 166.41       | 44482.84 ± 2602.91     | Hash set + enumeration with parallel |
+|   8 | 41.86 ± 2.02           | 132.83 ± 4.90          | Lattice points of lines              |
 
 ## Running the code
 
