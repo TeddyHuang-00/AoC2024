@@ -34,6 +34,7 @@ impl Solution for Puzzle {
                     results = results
                         .iter()
                         .flat_map(|r| [r + n, r * n].into_iter())
+                        .filter(|&r| r <= target)
                         .collect();
                 });
                 results.contains(&target).then_some(target)
@@ -54,6 +55,7 @@ impl Solution for Puzzle {
                         .flat_map(|r| {
                             [r + n, r * n, r * 10usize.pow(n.ilog10() + 1) + n].into_iter()
                         })
+                        .filter(|&r| r <= target)
                         .collect();
                 });
                 results.contains(&target).then_some(target)
