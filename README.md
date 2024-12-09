@@ -16,6 +16,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |   6 | 521.66 ± 42.10         | 76062.14 ± 1238.70     | Brute force with parallel            |
 |   7 | 1322.73 ± 99.07        | 27690.07 ± 910.65      | Hash set + enumeration with parallel |
 |   8 | 41.86 ± 2.02           | 132.83 ± 4.90          | Lattice points of lines              |
+|   9 | 277.48 ± 10.21         | 9026.38 ± 27.95        | Double pointer                       |
 
 ## Running the code
 
