@@ -1,4 +1,4 @@
-use std::iter;
+use std::{cmp::Reverse, collections::BinaryHeap, iter};
 
 use crate::solution::Solution;
 
@@ -81,26 +81,41 @@ impl Solution for Puzzle {
     }
 
     fn part2(&self, input: &str) -> String {
-        let (mut blocks, mut frees) = Self::parse_input(input);
+        let (mut blocks, frees) = Self::parse_input(input);
+        let mut frees = frees
+            .into_iter()
+            .fold(vec![BinaryHeap::new(); 10], |mut acc, (i, x)| {
+                if x > 0 {
+                    acc[x].push(Reverse(i));
+                }
+                acc
+            });
         let mut checksum = 0;
-        for (id, (b_idx, b_len)) in blocks.iter_mut().enumerate().rev() {
-            for (f_idx, f_len) in frees.iter_mut() {
-                // No more free space on the left
-                if f_idx >= b_idx {
-                    break;
-                }
-                // Move the file blocks to current free space
-                if f_len >= b_len {
+        blocks
+            .iter_mut()
+            .enumerate()
+            .rev()
+            .for_each(|(id, (b_idx, b_len))| {
+                if let Some((mut f_len, _)) = frees
+                    .iter()
+                    .enumerate()
+                    // Skip the free space that is too small
+                    .skip(*b_len)
+                    // Skip the length set that has no free space
+                    .filter(|(_, ids)| !ids.is_empty() && ids.peek().unwrap().0 < *b_idx)
+                    .min_by(|(_, a), (_, b)| a.peek().unwrap().0.cmp(&b.peek().unwrap().0))
+                {
+                    let f_idx = frees[f_len].pop().unwrap().0;
                     // Move file block to current free space
-                    *b_idx = *f_idx;
+                    *b_idx = f_idx;
                     // Shrink the free space
-                    *f_len -= *b_len;
-                    *f_idx += *b_len;
+                    f_len -= *b_len;
+                    if f_len > 0 {
+                        frees[f_len].push(Reverse(f_idx + *b_len));
+                    }
                 }
-            }
-            // Calculate the checksum
-            checksum += (*b_idx + (*b_idx + *b_len - 1)) * *b_len / 2 * id;
-        }
+                checksum += (*b_idx + (*b_idx + *b_len - 1)) * *b_len / 2 * id;
+            });
         checksum.to_string()
     }
 }
