@@ -28,16 +28,21 @@ impl Solution for Puzzle {
         let data = Self::parse_input(input);
         data.into_par_iter()
             .filter_map(|(target, numbers)| {
-                let mut numbers = numbers.into_iter();
-                let mut results = HashSet::from([numbers.next()?]);
-                numbers.for_each(|n| {
-                    results = results
+                let _target = target;
+                let mut target = HashSet::from([target]);
+                numbers.iter().skip(1).rev().for_each(|n| {
+                    target = target
                         .iter()
-                        .flat_map(|r| [r + n, r * n].into_iter())
-                        .filter(|&r| r <= target)
+                        .flat_map(|t| {
+                            [(*t >= *n).then(|| t - n), (*t % *n == 0).then(|| t / n)]
+                                .into_iter()
+                                .filter_map(|x| x)
+                        })
                         .collect();
                 });
-                results.contains(&target).then_some(target)
+                target
+                    .contains(&numbers.first().unwrap())
+                    .then_some(_target)
             })
             .sum::<usize>()
             .to_string()
@@ -47,18 +52,26 @@ impl Solution for Puzzle {
         let data = Self::parse_input(input);
         data.into_par_iter()
             .filter_map(|(target, numbers)| {
-                let mut numbers = numbers.into_iter();
-                let mut results = HashSet::from([numbers.next()?]);
-                numbers.for_each(|n| {
-                    results = results
+                let _target = target;
+                let mut target = HashSet::from([target]);
+                numbers.iter().skip(1).rev().for_each(|n| {
+                    target = target
                         .iter()
-                        .flat_map(|r| {
-                            [r + n, r * n, r * 10usize.pow(n.ilog10() + 1) + n].into_iter()
+                        .flat_map(|t| {
+                            let base = 10usize.pow(n.ilog10() + 1);
+                            [
+                                (*t >= *n).then(|| t - n),
+                                (*t % *n == 0).then(|| t / n),
+                                (*t % base == *n).then(|| t / base),
+                            ]
+                            .into_iter()
+                            .filter_map(|x| x)
                         })
-                        .filter(|&r| r <= target)
                         .collect();
                 });
-                results.contains(&target).then_some(target)
+                target
+                    .contains(&numbers.first().unwrap())
+                    .then_some(_target)
             })
             .sum::<usize>()
             .to_string()
