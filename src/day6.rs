@@ -20,7 +20,7 @@ struct Coord {
 }
 
 impl Coord {
-    fn to_index(&self) -> [usize; 2] {
+    fn to_index(self) -> [usize; 2] {
         [self.row, self.col]
     }
 

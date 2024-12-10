@@ -4,11 +4,14 @@ use crate::solution::Solution;
 
 pub struct Puzzle;
 
+type IndexLengthPairs = Vec<(usize, usize)>;
+
 impl Puzzle {
-    fn parse_input(input: &str) -> (Vec<(usize, usize)>, Vec<(usize, usize)>) {
+    fn parse_input(input: &str) -> (IndexLengthPairs, IndexLengthPairs) {
         let input = input
             .chars()
-            .filter_map(|c| c.is_ascii_digit().then(|| c as usize - '0' as usize))
+            .filter(|&c| c.is_ascii_digit())
+            .map(|c| c as usize - '0' as usize)
             .collect::<Vec<_>>();
         let index = iter::once(0)
             .chain(input.iter().scan(0, |acc, &x| {

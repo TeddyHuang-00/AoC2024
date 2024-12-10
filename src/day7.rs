@@ -36,12 +36,12 @@ impl Solution for Puzzle {
                         .flat_map(|t| {
                             [(*t >= *n).then(|| t - n), (*t % *n == 0).then(|| t / n)]
                                 .into_iter()
-                                .filter_map(|x| x)
+                                .flatten()
                         })
                         .collect();
                 });
                 target
-                    .contains(&numbers.first().unwrap())
+                    .contains(numbers.first().unwrap())
                     .then_some(_target)
             })
             .sum::<usize>()
@@ -65,12 +65,12 @@ impl Solution for Puzzle {
                                 (*t % base == *n).then(|| t / base),
                             ]
                             .into_iter()
-                            .filter_map(|x| x)
+                            .flatten()
                         })
                         .collect();
                 });
                 target
-                    .contains(&numbers.first().unwrap())
+                    .contains(numbers.first().unwrap())
                     .then_some(_target)
             })
             .sum::<usize>()

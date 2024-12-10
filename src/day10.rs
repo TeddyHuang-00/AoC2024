@@ -15,11 +15,9 @@ impl Coord {
     fn neighbors(&self) -> impl Iterator<Item = Self> + '_ {
         [(-1, 0), (1, 0), (0, -1), (0, 1)]
             .into_iter()
-            .filter_map(|(dx, dy)| {
-                Some(Coord {
-                    x: self.x.wrapping_add_signed(dx),
-                    y: self.y.wrapping_add_signed(dy),
-                })
+            .map(|(dx, dy)| Coord {
+                x: self.x.wrapping_add_signed(dx),
+                y: self.y.wrapping_add_signed(dy),
             })
     }
 }
@@ -59,11 +57,9 @@ impl Solution for Puzzle {
                             map.into_iter()
                                 .fold(HashMap::new(), |mut acc, (coord, pos)| {
                                     coord.neighbors().for_each(|neighbor| {
-                                        position.contains(&neighbor).then(|| {
-                                            acc.entry(neighbor)
-                                                .or_insert_with(HashSet::new)
-                                                .extend(&pos)
-                                        });
+                                        position
+                                            .contains(&neighbor)
+                                            .then(|| acc.entry(neighbor).or_default().extend(&pos));
                                     });
                                     acc
                                 }),
@@ -80,7 +76,7 @@ impl Solution for Puzzle {
                 },
             )
             .map_or(0, |maps| {
-                maps.into_iter().map(|(_, pos)| pos.len()).sum::<usize>()
+                maps.into_values().map(|pos| pos.len()).sum::<usize>()
             })
             .to_string()
     }
@@ -115,9 +111,7 @@ impl Solution for Puzzle {
                     )
                 }
             })
-            .map_or(0, |maps| {
-                maps.into_iter().map(|(_, pos)| pos).sum::<usize>()
-            })
+            .map_or(0, |maps| maps.into_values().sum::<usize>())
             .to_string()
     }
 }
