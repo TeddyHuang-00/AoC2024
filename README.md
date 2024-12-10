@@ -4,7 +4,7 @@ This repository contains my solutions for the Advent of Code 2024 in Rust. I'm u
 
 ## Performance
 
-Ergonomics and readability are more important to me than performance, so I'm not going to spend a lot of time optimizing the code. That being said, I'm running benchmarks for each day's solution for reference. Due to the nature of the Advent of Code puzzles, the input vary from person to person, so the benchmarks are not representative of the performance of the code in general. For the record, I'm running the benchmarks on a PC with an AMD Ryzen 9 7950X3D 16-Core Processor @ 5.7 GHz and 128 GB of RAM.
+Ergonomics and readability are more important to me than performance, so I'm not going to spend a lot of time optimizing the code. That being said, I'm trying to make the solutions as efficient as possible without sacrificing readability (goal is to achieve ~1ms performance with ~300 lines of code). Benchmarks for each day's solution are listed here for reference. Due to the nature of the Advent of Code puzzles, the input vary from person to person, so the benchmarks are not representative of the performance of the code in general. For the record, I'm running the benchmarks on a PC with an AMD Ryzen 9 7950X3D 16-Core Processor @ 5.7 GHz and 128 GB of RAM.
 
 | Day | Part 1 (micro seconds) | Part 2 (micro seconds) | Method                               |
 | --: | ---------------------- | ---------------------- | ------------------------------------ |
