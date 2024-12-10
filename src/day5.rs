@@ -1,11 +1,14 @@
-use std::collections::{HashMap, HashSet};
+use std::{cmp::Ordering, collections::HashMap};
 
 use crate::solution::Solution;
+
+type OrderingMap = HashMap<(usize, usize), Ordering>;
+type Update = Vec<usize>;
 
 pub struct Puzzle;
 
 impl Puzzle {
-    fn parse_input(input: &str) -> (Vec<(usize, usize)>, Vec<Vec<usize>>) {
+    fn parse_input(input: &str) -> (OrderingMap, Vec<Update>) {
         let parts: Vec<&str> = input.split("\n\n").collect();
         let (rules, updates) = match parts.as_slice() {
             &[rules, updates] => (rules, updates),
@@ -20,6 +23,7 @@ impl Puzzle {
                     second.parse::<usize>().unwrap(),
                 )
             })
+            .flat_map(|(a, b)| vec![((a, b), Ordering::Less), ((b, a), Ordering::Greater)])
             .collect();
         let updates = updates
             .lines()
@@ -38,59 +42,27 @@ impl Solution for Puzzle {
         let (rules, updates) = Self::parse_input(input);
         updates
             .into_iter()
-            .filter_map(|update| {
-                if rules.iter().any(|(first, second)| {
-                    // Check if the first and second numbers are in the update
-                    update.contains(first)
-                        && update.contains(second)
-                    // and the first number doesn't come before the second
-                        && update.iter().position(|&n| n == *first)
-                            > update.iter().position(|&n| n == *second)
-                }) {
-                    None
-                } else {
-                    Some(update[update.len() / 2])
-                }
+            // Get the sorted updates
+            .filter(|update| {
+                update.is_sorted_by(|a, b| !matches!(rules.get(&(*a, *b)), Some(Ordering::Greater)))
             })
+            .map(|update| update[update.len() / 2])
             .sum::<usize>()
             .to_string()
     }
 
     fn part2(&self, input: &str) -> String {
-        let (rules, updates) = Self::parse_input(input);
+        let (rules, mut updates) = Self::parse_input(input);
         updates
-            .into_iter()
-            .filter_map(|update| {
-                if rules.iter().any(|(first, second)| {
-                    // Check if the first and second numbers are in the update
-                    update.contains(first)
-                        && update.contains(second)
-                    // and the first number doesn't come before the second
-                        && update.iter().position(|&n| n == *first)
-                            > update.iter().position(|&n| n == *second)
-                }) {
-                    let mut edges = HashMap::new();
-                    rules.iter().for_each(|(a, b)| {
-                        if update.contains(a) && update.contains(b) {
-                            edges.entry(*b).or_insert_with(HashSet::new).insert(*a);
-                        }
-                    });
-                    // Topological sort
-                    let mut sorted = vec![];
-                    while let Some(parent) = update
-                        .iter()
-                        .filter(|&&node| !sorted.contains(&node))
-                        .find(|&&node| edges.entry(node).or_insert_with(HashSet::new).is_empty())
-                    {
-                        sorted.push(*parent);
-                        for (_, children) in edges.iter_mut() {
-                            children.remove(parent);
-                        }
-                    }
-                    Some(sorted[sorted.len() / 2])
-                } else {
-                    None
-                }
+            .iter_mut()
+            // Get the unsorted updates
+            .filter(|update| {
+                !update
+                    .is_sorted_by(|a, b| !matches!(rules.get(&(*a, *b)), Some(Ordering::Greater)))
+            })
+            .map(|update| {
+                update.sort_by(|&a, &b| *rules.get(&(a, b)).unwrap_or(&Ordering::Equal));
+                update[update.len() / 2]
             })
             .sum::<usize>()
             .to_string()
