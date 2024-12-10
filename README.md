@@ -12,7 +12,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |   2 | 95.70 ± 2.82           | 145.03 ± 3.32          | Brute force                          |
 |   3 | 151.32 ± 7.61          | 215.90 ± 4.96          | Regular expression                   |
 |   4 | 663.44 ± 22.55         | 507.05 ± 12.22         | Matrix stacking & matching           |
-|   5 | 931.95 ± 65.25         | 2460.15 ± 69.06        | Topological sort                     |
+|   5 | 198.40 ± 4.47          | 278.54 ± 5.63          | Stable sort                          |
 |   6 | 504.64 ± 37.45         | 5654.17 ± 204.83       | Efficient matching with parallel     |
 |   7 | 529.62 ± 89.81         | 533.56 ± 83.50         | Hash set + enumeration with parallel |
 |   8 | 41.86 ± 2.02           | 132.83 ± 4.90          | Lattice points of lines              |
