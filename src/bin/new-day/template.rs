@@ -10,10 +10,10 @@ impl Puzzle {
 
 impl Solution for Puzzle {
     fn part1(&self, input: &str) -> String {
-        panic!("Not implemented")
+        unimplemented!()
     }
 
     fn part2(&self, input: &str) -> String {
-        panic!("Not implemented")
+        unimplemented!()
     }
 }
