@@ -2,9 +2,9 @@ use std::{cmp::Reverse, collections::BinaryHeap, iter};
 
 use crate::solution::Solution;
 
-pub struct Puzzle;
-
 type IndexLengthPairs = Vec<(usize, usize)>;
+
+pub struct Puzzle;
 
 impl Puzzle {
     fn parse_input(input: &str) -> (IndexLengthPairs, IndexLengthPairs) {
