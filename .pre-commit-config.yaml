@@ -13,9 +13,8 @@ repos:
         description: Check if all files follow the rustfmt style
         language: rust
         files: \.rs$
-        pass_filenames: false
         entry: cargo +nightly fmt
-        args: ["--all"]
+        args: ["--"]
       - id: cargo-test
         name: cargo test
         description: Check if all tests pass
