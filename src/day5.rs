@@ -28,7 +28,7 @@ impl Puzzle {
         let updates = updates
             .lines()
             .map(|line| {
-                line.split(",")
+                line.split(',')
                     .map(|n| n.parse::<usize>().unwrap())
                     .collect()
             })
