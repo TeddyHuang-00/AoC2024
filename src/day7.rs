@@ -40,9 +40,7 @@ impl Solution for Puzzle {
                         })
                         .collect();
                 });
-                target
-                    .contains(numbers.first().unwrap())
-                    .then_some(_target)
+                target.contains(numbers.first().unwrap()).then_some(_target)
             })
             .sum::<usize>()
             .to_string()
@@ -69,9 +67,7 @@ impl Solution for Puzzle {
                         })
                         .collect();
                 });
-                target
-                    .contains(numbers.first().unwrap())
-                    .then_some(_target)
+                target.contains(numbers.first().unwrap()).then_some(_target)
             })
             .sum::<usize>()
             .to_string()
