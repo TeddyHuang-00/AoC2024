@@ -11,7 +11,7 @@ impl Puzzle {
             .map(|x| x.parse().unwrap())
             // As each stone is processed independently, the order doesn't matter
             .fold(HashMap::new(), |mut acc, x| {
-                *acc.entry(x).or_insert(0) += 1;
+                acc.entry(x).and_modify(|x| *x += 1).or_insert(1);
                 acc
             })
     }
@@ -37,7 +37,7 @@ impl Solution for Puzzle {
                 }
                 .iter()
                 .for_each(|&x| {
-                    *acc.entry(x).or_insert(0) += cnt;
+                    acc.entry(x).and_modify(|x| *x += cnt).or_insert(cnt);
                 });
                 acc
             });
@@ -64,7 +64,7 @@ impl Solution for Puzzle {
                 }
                 .iter()
                 .for_each(|&x| {
-                    *acc.entry(x).or_insert(0) += cnt;
+                    acc.entry(x).and_modify(|x| *x += cnt).or_insert(cnt);
                 });
                 acc
             });
