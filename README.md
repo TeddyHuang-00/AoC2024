@@ -19,6 +19,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |   9 | 282.59 ± 13.02         | 427.39 ± 7.10          | Double pointer / Priority Queue      |
 |  10 | 786.63 ± 11.36         | 544.29 ± 12.85         | Hash map + Dynamic programming       |
 |  11 | 230.03 ± 3.03          | 7469.34 ± 29.42        | Hash map + counting                  |
+|  12 | 1339.67 ± 11.36        | 6901.07 ± 75.42        | Disjoint set                         |
 
 ## Running the code
 
