@@ -38,7 +38,7 @@ impl Solution for Puzzle {
     }
 
     fn part2(&self, input: &str) -> String {
-        let input = Puzzle::parse_input(input);
+        let input = Self::parse_input(input);
         input
             .into_iter()
             .map(|row| {
