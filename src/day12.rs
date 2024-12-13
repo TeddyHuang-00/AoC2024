@@ -1,4 +1,4 @@
-use std::{collections::HashMap, iter};
+use std::collections::HashMap;
 
 use ndarray::prelude::*;
 
@@ -65,8 +65,14 @@ impl Puzzle {
         )
     }
 
-    fn coord_to_vertices((r, c): Coord) -> [Coord; 4] {
-        [(r, c), (r + 1, c), (r, c + 1), (r + 1, c + 1)]
+    // Convert a coordinate to its four vertices, with the integer indicating the direction
+    fn coord_to_vertices((r, c): Coord) -> [(Coord, isize); 4] {
+        [
+            ((r, c), 1),
+            ((r + 1, c), -1),
+            ((r, c + 1), -1),
+            ((r + 1, c + 1), 1),
+        ]
     }
 }
 
@@ -131,59 +137,30 @@ impl Solution for Puzzle {
                 }
             })
         });
-        // Second pass: Calculate area and corners for each region
+        // Second pass: Calculate area and sides for each region
         let mut area = HashMap::new();
-        let mut corner = HashMap::new();
+        let mut side = HashMap::new();
         (1..=nrows).for_each(|r| {
             (1..=ncols).for_each(|c| {
                 area.entry(regions.find((r, c)))
                     .and_modify(|a| *a += 1)
                     .or_insert(1);
-                corner
-                    .entry(regions.find((r, c)))
-                    .and_modify(|p: &mut HashMap<Coord, Vec<Coord>>| {
-                        Self::coord_to_vertices((r, c)).iter().for_each(|v| {
-                            p.entry(*v).or_default().push((r, c));
-                        });
-                    })
-                    .or_insert(HashMap::from_iter(
+                side.entry(regions.find((r, c)))
+                    .and_modify(|p: &mut HashMap<Coord, isize>| {
                         Self::coord_to_vertices((r, c))
                             .into_iter()
-                            .zip(iter::repeat(vec![(r, c)])),
-                    ));
+                            .for_each(|(v, d)| {
+                                p.entry(v).and_modify(|x| *x += d).or_insert(d);
+                            });
+                    })
+                    .or_insert(HashMap::from(Self::coord_to_vertices((r, c))));
             })
         });
-        // Convert corner to count of sides
-        // The number of sides is equal to the number of corners
-        let side = corner
+        let side = side
             .into_iter()
-            .map(|(k, v)| {
-                (
-                    k,
-                    v.into_values()
-                        .filter_map(|c| match c.len() {
-                            // Outward / inward corner
-                            1 | 3 => Some(1),
-                            // Side or two diagonal corners
-                            // depending on how the region is connected
-                            2 => {
-                                let (r1, c1) = c[0];
-                                let (r2, c2) = c[1];
-                                if r1 != r2 && c1 != c2 {
-                                    // Connected to the corner, two distinct corners
-                                    Some(2)
-                                } else {
-                                    // Connected to the side, no corner
-                                    None
-                                }
-                            }
-                            // No corner
-                            4 => None,
-                            _ => unreachable!(),
-                        })
-                        .sum::<usize>(),
-                )
-            })
+            // Through the math of integer encoding, the number of corners in a point is its absolute value
+            // And we can sum the number of corners for each point to get the total number of sides (corners = sides)
+            .map(|(k, v)| (k, v.into_values().map(|x| x.unsigned_abs()).sum::<usize>()))
             .collect::<HashMap<_, _>>();
         area.keys()
             .map(|k| area[k] * side[k])
