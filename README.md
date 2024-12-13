@@ -20,6 +20,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |  10 | 786.63 ± 11.36         | 544.29 ± 12.85         | Hash map + Dynamic programming       |
 |  11 | 230.03 ± 3.03          | 7469.34 ± 29.42        | Hash map + counting                  |
 |  12 | 1339.67 ± 11.36        | 4473.70 ± 106.61       | Disjoint set                         |
+|  13 | 285.74 ± 11.13         | 285.70 ± 5.71          | Linear system resolution             |
 
 ## Running the code
 
