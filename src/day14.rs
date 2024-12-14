@@ -71,6 +71,7 @@ impl Solution for Puzzle {
 
     fn part2(&self, input: &str) -> String {
         let robots = Self::parse_input(input);
+        let count = robots.len();
         // Naive solution for determine the board type is example or actual input
         let (width, height) = if robots.len() < 100 {
             // No solution for example input
@@ -90,21 +91,23 @@ impl Solution for Puzzle {
                         y: (pos.y + vel.y * i).rem_euclid(height),
                     })
                     .collect::<HashSet<Coord>>();
+                // Some heuristics to determine if the robots form a pattern
+                robots.len() == count
                 // It is highly unlikely that 9 robots will be in the same 3x3 area by chance
                 // So, we can safely assume that it forms some pattern
                 // Since the pattern is large, we can also increase the range to 5x5 or above
                 // to reduce the chance of false positive
                 // It just so happens that 3x3 is enough to find the answer
-                robots.iter().any(|&pos| {
-                    (-1..=1).all(|dx| {
-                        (-1..=1).all(|dy| {
-                            robots.contains(&Coord {
-                                x: pos.x + dx,
-                                y: pos.y + dy,
+                    && robots.iter().any(|&pos| {
+                        (-1..=1).all(|dx| {
+                            (-1..=1).all(|dy| {
+                                robots.contains(&Coord {
+                                    x: pos.x + dx,
+                                    y: pos.y + dy,
+                                })
                             })
                         })
                     })
-                })
             })
             .unwrap()
             .to_string()
