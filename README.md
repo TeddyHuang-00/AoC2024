@@ -23,6 +23,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |  13 | 285.74 ± 11.13         | 285.70 ± 5.71          | Linear system resolution             |
 |  14 | 329.95 ± 27.20         | 4071.26 ± 350.11       | Partial match with parallel          |
 |  15 | 1270.54 ± 21.40        | 12582.12 ± 43.38       | Hash set + recursion                 |
+|  16 |                        |                        | A\* search + BFS                     |
 
 ## Running the code
 
