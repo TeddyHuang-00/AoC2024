@@ -25,6 +25,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |  15 | 1270.54 ± 21.40        | 12582.12 ± 43.38       | Hash set + recursion                 |
 |  16 |                        |                        | A\* search + BFS                     |
 |  17 |                        |                        | Reverse search                       |
+|  18 |                        |                        | A\* search + binary search           |
 
 ## Running the code
 
