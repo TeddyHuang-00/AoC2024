@@ -26,6 +26,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |  16 |                        |                        | A\* search + BFS                     |
 |  17 |                        |                        | Reverse search                       |
 |  18 |                        |                        | A\* search + binary search           |
+|  19 |                        |                        | Dynamic programming with parallel    |
 
 ## Running the code
 
