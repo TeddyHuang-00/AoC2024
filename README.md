@@ -29,6 +29,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |  19 |                        |                        | Dynamic programming with parallel    |
 |  20 |                        |                        | Hash map with parallel               |
 |  21 |                        |                        | Recursive resolution with cache      |
+|  22 |                        |                        | Hash map + parallel                  |
 
 ## Running the code
 
