@@ -28,6 +28,7 @@ Ergonomics and readability are more important to me than performance, so I'm not
 |  18 |                        |                        | A\* search + binary search           |
 |  19 |                        |                        | Dynamic programming with parallel    |
 |  20 |                        |                        | Hash map with parallel               |
+|  21 |                        |                        | Recursive resolution with cache      |
 
 ## Running the code
 
