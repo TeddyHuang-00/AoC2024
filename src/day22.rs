@@ -4,7 +4,7 @@ use rayon::prelude::*;
 
 use crate::solution::Solution;
 
-type Integer = u64;
+type Integer = u32;
 
 #[derive(Debug, Clone, Copy)]
 struct SecretNumber {
@@ -16,12 +16,14 @@ impl SecretNumber {
         Self { value }
     }
 
+    /// Bitwise XOR with the given number
     fn mix(&mut self, other: Integer) {
         self.value ^= other;
     }
 
+    /// Keep the last 24 bits
     fn prune(&mut self) {
-        self.value %= 16777216;
+        self.value &= 0x00_FF_FF_FF;
     }
 
     fn hash(&mut self) {
