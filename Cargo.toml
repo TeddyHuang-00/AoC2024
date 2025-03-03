@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-cached = "0.54.0"
+cached = "0.55.0"
 clap = { version = "4.5.23", features = ["derive"] }
 ndarray = { version = "0.16.1", features = ["approx"] }
 rayon = "1.10.0"
